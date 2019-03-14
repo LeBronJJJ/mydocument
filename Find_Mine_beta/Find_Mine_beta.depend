@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1540999868 source:d:\program\find_mine_beta\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+

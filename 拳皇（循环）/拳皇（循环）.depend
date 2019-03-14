@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1519651245 source:d:\³ÌÐò\È­»Ê£¨Ñ­»·£©\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+
+1519652214 source:d:\program\È­»Ê£¨Ñ­»·£©\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+

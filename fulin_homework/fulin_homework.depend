@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1527768945 source:d:\program\fulin_homework\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
