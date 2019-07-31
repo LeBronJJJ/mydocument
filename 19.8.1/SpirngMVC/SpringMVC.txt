@@ -1,0 +1,366 @@
+JavaEE体系结构包括四层，从上到下分别是应用层、Web层、业务层、持久层。Struts和SpringMVC是Web层的框架，Spring是业务层的框架，Hibernate和MyBatis是持久层的框架。
+SpringMVC：SpringMVC是一种基于Java，实现了Web MVC设计模式，请求驱动类型的轻量级Web框架，即使用了MVC架构模式的思想，将Web层进行职责解耦。基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发，SpringMVC也是要简化我们日常Web开发。
+
+
+MVC设计模式：简单的来说就是用户发送请求，控制器接受到请求并转发给模型（相当于处理器），将请求转换为模型数据再传回给控制器，控制器再将数据给视图，视图将模型数据做成页面的形式（视图）再返回给给控制器，控制器再返回给用户。
+
+
+SpringMVC具体流程
+具体流程：
+
+（1）首先浏览器发送请求——>DispatcherServlet，前端控制器收到请求后自己不进行处理，而是委托给其他的解析器进行处理，作为统一访问点，进行全局的流程控制；
+
+（2）DispatcherServlet——>HandlerMapping，处理器映射器将会把请求映射为HandlerExecutionChain对象（包含一个Handler处理器对象、多个HandlerInterceptor拦截器）对象；
+
+（3）DispatcherServlet——>HandlerAdapter，处理器适配器将会把处理器包装为适配器，从而支持多种类型的处理器，即适配器设计模式的应用，从而很容易支持很多类型的处理器；
+
+（4）HandlerAdapter——>调用处理器相应功能处理方法，并返回一个ModelAndView对象（包含模型数据、逻辑视图名）；
+
+（5）ModelAndView对象（Model部分是业务对象返回的模型数据，View部分为逻辑视图名）——> ViewResolver， 视图解析器将把逻辑视图名解析为具体的View；
+
+（6）View——>渲染，View会根据传进来的Model模型数据进行渲染，此处的Model实际是一个Map数据结构；
+
+（7）返回控制权给DispatcherServlet，由DispatcherServlet返回响应给用户，到此一个流程结束
+
+
+SpringMVC 前提工作：
+在web.xml文件中配置 DispatcherServlet（前端控制器）
+ <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>   //spring应用的初始化，个人理解为：在web.xml中定义contextConfigLocation参数，Spring会使用这个参数去加载所有逗号分隔的xml文件，如果没有这个参数，Spring默认加载/WEB-INF//applicationContext.xml文件
+      <param-value>/WEB-INF/springmvc.xml</param-value>   //表示spring要去加载/WEB-INF/下的springmvc.xml的文件
+    </init-param>
+    <load-on-startup>1</load-on-startup>  //表示这个servlet会在服务器启动时就进行初始化
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <url-pattern>/</url-pattern>   //表示接受所有请求
+  </servlet-mapping>
+
+springmvc.xml的基本配置：
+<!--配置包扫描（扫描带有注解的包）-->
+<!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">   //配置InternalResourceViewResolver的bean
+        <property name="prefix" value="/WEB-INF/view/"></property> //表示前缀：映射的路径是/WEB-INF/view/ 下的某个文件
+        <property name="suffix" value=".jsp"></property>           //表示后缀：表示映射的是.jsp文件
+    </bean>  
+
+Handler（处理器）
+编写一个处理器类：
+简单的随便写一个类，然后再其中写出目标方法（要求带有返回值），带上@RequestMapping 注解。
+例子：@RequestMapping("/hello")
+    public String hello(){
+        return "helloword";
+    }
+其对应的请求链接（url）应该为： 视图解析器中的 前缀+@RequestMapping注解的value（默认）值+后缀。
+
+@RequestMapping（映射） ：这个注解会将 HTTP 请求映射到 MVC 和 REST 控制器的处理方法上
+处理器映射器（HandlerMapping）将会把请求映射为 HandlerExecutionChain 对象（包含一个 Handler 处理器对象、多个 HandlerInterceptor 拦截器）对象   ！！！也就是返回一个处理器执行链。  个人理解：就是将这个请求映射到处理器中。  
+这个注解放在 类的上面：就相当于一个一级目录
+       放在 方法上面就相当于一个二级目录，如果没有放到类上面，在对应的jsp文件中 链接就只有一个“目录”
+对于这个请求的响应，就是请求转发到目标方法返回的jsp文件。 前缀+返回值+后缀（一个jsp文件）
+这个注解还可以映射请求头，请求实体，请求方法等
+@RequestMapping(value = "/hzm", method = RequestMethod.GET, params = {"name", "age=10"})""）
+表示浏览器发送的请求方法必须是get方法，而且请求实体里面必须又name和age两个请求参数，并且请求age必须等于10
+
+@PathVariable 注解 URL绑定的占位符：可以将URL中的{x}占位符参数绑定到目标方法的入参中。
+例子：
+@RequestMapping("/methods/{id}")
+    public String methods(@PathVariable("id") Integer id){
+        System.out.println(id);
+        return hzm;
+    }
+将URL中的id的值传入到 目标方法得参数id中，用法就如例子一样
+
+REST风格的url：（资源）表现层状态转化。  （这里简单的说就是将请求方式转换为别的请求方式 如：get、post、delete、put等）
+步骤：在web.xml中配置 HiddenHttpMethodFilter：浏览器表单只支持get和post请求，（Spring3.0版本以上）而这个过滤器可以将post请求转换为标准的http请求，就是说也支持delete、put 等请求。
+<filter>
+    <filter-name>filter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>filter</filter-name>
+    <url-pattern>/*</url-pattern>  //拦截所有请求
+  </filter-mapping>
+
+页面表单中做出如下操作：
+<form action="methods/1" method="post">  //这里的请求转换 IE浏览器不支持
+        <input hidden="hidden" name="_method" value="DELETE">  //转换为delete请求
+        <input type="submit" value="Submit">
+</form>
+
+
+@RequestParam 注解：绑定请求参数
+用法：
+@RequestMapping("/requestparam")
+    public String Requestparam(@RequestParam(value = "name", required = false,defaultValue = "") String name,
+                               @RequestParam(value = "age",required = false,defaultValue = "0") int age){
+        System.out.println(name+":"+age);
+        return hzm;
+    }
+value属性代表绑定的参数，required 代表请求参数是不是必须的（默认是必须的），defaultValue属性代表请求参数的默认值
+@RequestParam 和 @PathVariable 的区别：
+@PathVariable是通过url的占位符来绑定参数
+@RequestParam是直接绑定参数
+
+
+@RequestHeader 注解：映射请求头信息
+用法和@RequestParam差不多
+
+@CookieValue 注解：映射Cookie中的值
+用法和@RequestParam差不多
+
+
+使用POJO对象绑定请求参数
+SpringMVC回按请求参数名和POJO属性名进行自动匹配。
+自动为该对象填充属性值、支持级联属性
+
+使用Servlet的原生API作为目标方法的入参
+HttpServletRequest
+HttpServletRespond
+HttpSession
+InputStream
+OutStream
+Reader
+Writer
+
+
+！！！处理模型数据
+涉及：浏览器发送请求，经过处理到处理器（目标方法），处理器需要返回一个对象（模型数据）给浏览器，所以需要将这个模型数据放到浏览器的作用域中。
+处理器返回的数据模型有4种途径;
+1 ModelAndView:以ModelAndView 对象作为目标方法的返回值。
+2 Map及Model：以Map或Model 作为目标方法的入参，目标方法返回的时候，会将Map中的数据自动添加到模型数据中。
+3 @SessionAttributes 注解：将模型中的某个属性暂存到HttpSession中，以便多个请求之间可以共享这个属性。
+4 @ModelAttribute 注解：方法入参标注该注解后，入参的对象就会放到模型数据中。
+
+
+！！！注意：不管返回值是String，ModelAndView等，SpringMVC 都会将他转换为ModelAndView 对象
+
+1 ModelAndView
+SpringMVC 会把ModelAndView 对象中的数据放到 Request对象域中。
+
+2 Map及Model
+SpringMVC 会在调用目标方法前，创建一个隐含的模型对象作为模型数据的存储容器，若是方法的入参为Map或Model，SpringMVC会将隐含模型对象引用给入参
+
+3 @SessionAttributes 注解
+如是希望多个请求之间公用某个模型属性数据，则可以在控制器类（Handler）上面标注 @SessionAttributes 注解
+用法：
+@SessionAttributes 注解 value 属性：通过属性名来指定哪些模型属性数据放到 Seesion对象域中。
+@SessionAttributes 注解 types 属性：通过对象类型来指定哪些模型属性数据放到 Seesion对象域中。
+注意：该注解只能放到类的上面
+
+4 @ModelAttribute 注解
+使用场景：无法描述
+
+用法：
+    @ModelAttribute
+    public void getUser(Map<String ,Object> map){
+        User user = new User(1,"lusen",1,"131313");
+        map.put("user",user);
+    }
+
+    @RequestMapping("/modelattribute")
+    public String modelattribute(User user){
+        System.out.println(user);
+        return hzm;
+    }
+注意：map中存入的键名是对象的类型第一个字母小写的属性名。也可以通过设置
+
+运行流程：
+1 执行@ModelAttribute 注解修饰的方法：从“数据库”中取出对象，并把对象放到Map中，键：user
+2 SpringMVC从 Map中取出该对象，并把表单的请求参数赋给 该对象对应的属性。
+3 SpringMCV 把上述对象传入目标方法的入参中。
+
+
+
+
+
+
+
+视图和视图解析器
+我们在springmvc.xml配置的视图解析器，作用就是将逻辑视图转换成物理视图。
+运行流程：
+HandlerAdapter（处理器适配器）调用目标方法，然后返回一个ModelAndView类型的对象（逻辑视图），然后处理这个视图，用到了视图解析器来处理视图，最后请求转发
+简单的来说
+视图解析器就是将目标方法返回的ModelAndView处理后，得到一个视图（jsp或者excel等）；
+视图就是来渲染模型数据，将模型数据以某种形式呈现给用户
+
+一个新的视图;JstlView  
+配置：配置国际化资源文件，导入JstlView的包，SpringMVC会自动将InternalResourceView 转换成 JstlView。
+  在jsp中使用fmt标签
+
+配置直接转发的页面（不需要通过Handler目标方法）
+使用    <mvc:view-controller path="/hzm" view-name="hzm"></mvc:view-controller> 标签 请求转发
+path 是目标的路径。
+       <mvc:redirect-view-controller path="controller " redirect-url=""></mvc:redirect-view-controller>标签 是直接重定向
+！！！！注意：如果单独配置这个标签，会导致通过Handler目标方法的 映射 出现404错误，解决方法是 配置
+<mvc:annotation-driven></mvc:annotation-driven>标签  （但是Tomcat9.0 不会出现这个错误，无需配置后面的标签）
+
+配置自定义视图
+首先需要写一个视图类：写一个类实现View接口
+再配置BeanNameViewResolver 视图解析器。（原理：通过视图的名字在IOC容器中获取这个视图） ！！！注意：需要设定和其他视图解析器的使用顺序（设定order属性，来定义视图解析器的优先级，order越小优先级越高）
+
+重定向
+如果目标方法返回的字符串中 带有redirect： 则这个请求就是重定向；若是forward: 就是请求转发； 不带的话默认为请求转发。
+疑问：若是返回ModelAndView 类型对象 怎么办？
+
+数据绑定：数据类型转化、数据类型格式化、数据校验
+流程：
+1 SpringMVC框架将ServletRequest对象及目标方法的入参实例传递给WebDateBinderFactory实例，来创建出DataBinder实例。
+2 DataBinder调用装配在SpringMVC上下文的在ConversionService组件中，进行数据类型转换、数据类型格式化。
+3 调用Validator组件对已经绑定了请求信息的入参对象进行数据合法性校验，并生成最终数据绑定结果BindingData对象。
+4 SpringMVC抽取BindingResult中的入参对象和校验错误对象，将他们赋个处理方法的响应入参。
+
+自定义类型转换器
+1 自定义一个类型转换器类（Converter<S,T> 接口）
+2 在springmvc.xml 配置
+<mvc:annotation-driven conversion-service = "my"/>
+<bean id="my"
+	class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="自定义的类型转换器类"></ref>
+            </set>
+        </property>
+    </bean>
+
+！！！！<mvc:annotation-driven/>  （这个配置SpringMVC中通常都会带上）
+它会自动注册
+RequestMappingHandlerMapping、RequestMappingHandlerAdapter、ExceptionHandlerExceptionResolver 三个bean
+还会支持 ConversionService 实例对表单参数进行类型转换。
+还会支持@NumberFormatannotation、@DateTimeFormat、@Valid、@RequestBody、@ResponseBody 注解
+
+
+@InitBinder 注解
+可以对WebDataBinder 实例进行初始化
+注意：
+1 该注解标识的方法 不能有返回值，就是void的。。
+2 方法的参数 通常是WebDataBinder
+
+
+数据校验（不用深究）
+步骤：
+1 添加jar包（hibernate validator 验证框架）
+2 在springmvc.xml 中配置<mvc:annotation-driven/>
+3 需要在bean（验证的类） 的属性上添加对应的注解
+4 在目标放的 bean类型的入参前 添加@Vaild 注解
+
+页面数据错误的显示
+在表单上使用<form：errors path=""/> 就行了
+
+定制错误消息
+1 配置国际化资源文件（格式：bean 的属性上的注解 + 域对象中的name + 校验类属性名）
+2 springmvc.xml 中配置国际化资源文件
+
+JSON
+步骤：
+1 添加Json jar包
+2 编写目标方法，使其返回Json对应的对象或者集合
+3 在目标方法上添加@ResponseBody 注解
+具体步骤请看视频
+
+原理：HttpMessageConverter<T> 类
+工作原理：将请求信息转换为一个T类型的对象；也可以将T类型的对象转换为响应信息；
+SpringMVC 提供了两种途径：
+1 @RequestBody/@ResponseBody 注解对目标方法进行标注
+2 使用HttpEntity<T>/ResponseEntity<T> 类型的对象最为目标方法的入参或者返回值 
+
+
+
+国际化
+问题：
+1 在页面上能根据浏览器的的语言设置的情况对文本（不是内容）,时间，数值进行本地化处理
+2 可以在bean 中获取国际化资源文件Locale 对应的消息
+3 可以通过超链接切换Locale，而不依赖于浏览器的语言设置情况。
+
+解决;
+1 使用JSTL的fmt 标签
+2 在bean 中注入ResourceBudleMessageSource 的示例，使用其对应的getMessage 方法即可
+3 配置一个LocalResolver 和 LocalChangeInterceptor 
+
+重点是第三个
+原理流程：
+1 从请求中获取一个name = local 的请求参数
+2 把第一步中的local 请求参数解析为Local 对象
+3 获取一个LocaleResolver 对象
+4 把这个Local 对象设置为Session 的属性
+5 从Session中获取 Local 对象
+6 使用Local
+
+要求：
+在springmvc.xml 中配置LocalResolver（bean） 和 LocalChangeInterceptor（mvc：Interceptor）
+
+ 
+文件的上传
+SpringMVC的文件上传，是通过MultipartResolver 这个组件支持的 实际上这是一个接口。
+默认情况下SpringMVC 没有配置任何 MultipartResolver
+ 在springmvc.xml 中配置MultipartResolver
+
+    <bean id="multipartResolver"
+            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>   //默认编码格式
+        <property name="maxUploadSize" value="10240000"></property>	//上传最大值（KB？）
+    </bean>
+
+
+拦截器
+自定义的拦截器需要实现 HandlerInterceptor接口 并实现3个方法，然后在springmvc.xml 中添加这个拦截器
+preHandle:在调用目标方法之前调用。若返回值true，则会调用后续的拦截器的preHandle方法；若为false，则直接停止调用。  可以考虑做日志，事务等
+postHandle:在调用目标方法之后，渲染视图之前调用。 可以对请求域中的属性或者视图做出修改。
+afterCompletion:在渲染视图之后调用。 可以释放资源
+
+拦截器的配置
+<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path=""/>         //配置拦截器作用的路径
+            <mvc:exclude-mapping path=""/>  //配置拦截器不作用的路径
+        </mvc:interceptor>
+    </mvc:interceptors>
+多个拦截器的执行顺序
+first： preHandle（#1） postHandle（#2） afterCompletion（#3）
+second：preHandle（$1） postHandle（$2） afterCompletion（$3）
+
+顺序：#1-$1-handle方法-$2-#2-渲染视图-$3-#3 若是$1返回false 则直接 $1-#3
+
+
+异常处理
+SpringMVC通过HandlerExceptionResolver 处理异常，包括Handler 映射、数据绑定和目标方法种形式发生的异常。
+添加 <mvc:annotation-driven/> 配置后会有
+ExceptionHandlerExceptionResolver
+ResponseStatusExceptionResolver
+DefaultHandlerExceptionResolver
+
+ExceptionHandlerExceptionResolver：
+主要处理带有@ExceptionHandler 注解的方法；这个处理的value属性代表，异常的类型
+注意：
+1 该方法可以加入Exception 类型的入参，该参数就是发生的异常对象。
+2 该方法的如入参中不能传入 Map类型的对象；若是希望把异常传到页面上，需要使用ModelAndView 类型最为返回值。
+3 异常的优先级问题：若是有多个被@ExceptionHandler 注解修饰的方法，发生异常是会找到那个最为匹配的异常类型（也就是注解的 value属性值）
+
+！！！上面的方法作用范围只能在这个Handle 中，所以可以定义一个类来代表处理异常（比如HandleException）
+步骤：定义一个类 --> 在类名上标注@ControllerAdvice 注解 --> 在其中写入处理异常的方法
+注意：如果在当前的Handle 中找不到@ExceptionHandler 注解修饰的方法，则会去@ControllerAdvice 标记的类中查找带有@ControllerAdvice 注解修饰的方法
+
+ResponseStatusExceptionResolver：
+@ResponseStatus 注解可以修饰类，也可以修饰方法；详情请看视频。
+
+DefaultHandlerExceptionResolver：
+是用来处理特定异常的；详情请看视频。
+
+SimpleMappingExceptionResolver：
+需要在springmvc.xml中配置，主要用来映射异常类型，可以打印到页面上，同时也添加到作用中；详情请看视频。
+
+Spring整合SpringMVC
+问题：是否需要在web.xml中配置启动Spring IOC 容器的ContextLoaderListener ？
+
+需要：通常情况下，类似于数据源、事务、整合其他框架都是放在Spring 的配置文件中（而不是在SpringMVC 的配置文件中），还有Service 和 Dao
+不需要：都放在SpringMVC 的配置文件中，也可以分多个Spring 的多个配置文件，然后用 import 节点导入这些配置文件。
+
+注意：当同时配置Spring和SpringMVC 时 会扫描两遍包，也会同时同一个bean 创建两遍。
+解决：使用<context:exclude-filter type="" expression=""/>
+        <context:include-filter type="" expression=""/> 来解决
+
+SpringMVC 中可以引用Spring 的bean；反之不行。
+
