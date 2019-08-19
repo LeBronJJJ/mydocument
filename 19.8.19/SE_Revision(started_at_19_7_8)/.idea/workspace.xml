@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="883f86e9-8991-4b8f-9846-2f689a0958fa" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Arquillian JUnit Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1PCCk0wnWE7NQG5kuPNZp5CMWIR" />
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="yield()&#9;PSI&#9;JAVA://java.lang.Thread#yield&#10;HashMap&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/HashMap.java&#10;loadFactor&#9;PSI&#9;JAVA://java.util.HashMap#loadFactor&#10;putVal&#9;PSI&#9;JAVA://java.util.HashMap#putVal&#10;Queue&#9;PSI&#9;JAVA://java.awt.Queue&#10;Stack&#9;PSI&#9;JAVA://java.util.Stack&#10;LinkedList&#9;PSI&#9;JAVA://java.util.LinkedList&#10;Vector&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/Vector.java&#10;Arr&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java&#10;ArrayList&#9;PSI&#9;JAVA://java.util.ArrayList" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1565277926823" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_opened_file_path" value="D:/JavaEEProgram/chat_room" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.revision.Algorithm" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.DeleteDuplication">
+    <configuration name="DeleteDuplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.trainning.ListNode.DeleteDuplication" />
+      <module name="SE_Revision(started_at_19.7.8)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trainning.ListNode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PreOrderRe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.revision.BinTree.PreOrderRe" />
+      <module name="SE_Revision(started_at_19.7.8)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.revision.BinTree.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.revision.List.Solution" />
+      <module name="SE_Revision(started_at_19.7.8)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trainning.ListNode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestArrayList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.revision.List.TestArrayList" />
+      <module name="SE_Revision(started_at_19.7.8)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trainning.ListNode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestConcat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.revision.String.TestConcat" />
+      <module name="SE_Revision(started_at_19.7.8)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.revision.String.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.TestConcat" />
+      <item itemvalue="Application.TestArrayList" />
+      <item itemvalue="Application.Solution" />
+      <item itemvalue="Application.PreOrderRe" />
+      <item itemvalue="Application.DeleteDuplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DeleteDuplication" />
+        <item itemvalue="Application.PreOrderRe" />
+        <item itemvalue="Application.Solution" />
+        <item itemvalue="Application.TestArrayList" />
+        <item itemvalue="Application.TestConcat" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="883f86e9-8991-4b8f-9846-2f689a0958fa" name="Default Changelist" comment="" />
+      <created>1562826996105</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1562826996105</updated>
+      <workItem from="1562826999332" duration="5345000" />
+      <workItem from="1563110707512" duration="5218000" />
+      <workItem from="1563177206019" duration="2088000" />
+      <workItem from="1563188863396" duration="8495000" />
+      <workItem from="1563202984982" duration="3109000" />
+      <workItem from="1563206560751" duration="349000" />
+      <workItem from="1563290957103" duration="744000" />
+      <workItem from="1563439591354" duration="1330000" />
+      <workItem from="1563447209184" duration="8661000" />
+      <workItem from="1563463947221" duration="1398000" />
+      <workItem from="1563541626495" duration="4845000" />
+      <workItem from="1563586227637" duration="6509000" />
+      <workItem from="1563689737514" duration="598000" />
+      <workItem from="1563770362485" duration="594000" />
+      <workItem from="1563977819132" duration="6209000" />
+      <workItem from="1564051060163" duration="7295000" />
+      <workItem from="1564068995389" duration="3835000" />
+      <workItem from="1564235642917" duration="5398000" />
+      <workItem from="1564319050786" duration="6929000" />
+      <workItem from="1564590544280" duration="737000" />
+      <workItem from="1564656064774" duration="8499000" />
+      <workItem from="1564671777161" duration="2227000" />
+      <workItem from="1564712133000" duration="860000" />
+      <workItem from="1564839258633" duration="561000" />
+      <workItem from="1564844487933" duration="931000" />
+      <workItem from="1564882781965" duration="6162000" />
+      <workItem from="1564933502223" duration="1993000" />
+      <workItem from="1565001379555" duration="1553000" />
+      <workItem from="1565100508024" duration="2571000" />
+      <workItem from="1565185540736" duration="1632000" />
+      <workItem from="1565276343425" duration="851000" />
+      <workItem from="1565314541570" duration="617000" />
+      <workItem from="1565368833094" duration="166000" />
+      <workItem from="1565421272847" duration="701000" />
+      <workItem from="1565422016401" duration="39000" />
+      <workItem from="1565422112265" duration="1972000" />
+      <workItem from="1565489399649" duration="94000" />
+      <workItem from="1565616545810" duration="415000" />
+      <workItem from="1565623986573" duration="308000" />
+      <workItem from="1565691186621" duration="3180000" />
+      <workItem from="1565711146527" duration="714000" />
+      <workItem from="1565746382854" duration="43000" />
+      <workItem from="1565769781020" duration="4704000" />
+      <workItem from="1565882806552" duration="729000" />
+      <workItem from="1565933423638" duration="23000" />
+      <workItem from="1565945459898" duration="5182000" />
+      <workItem from="1565967915371" duration="308000" />
+      <workItem from="1565968270160" duration="4802000" />
+      <workItem from="1566026651676" duration="750000" />
+      <workItem from="1566054974717" duration="4190000" />
+      <workItem from="1566106760582" duration="11582000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/revision/Thread/TestInterrupt.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

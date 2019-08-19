@@ -1,0 +1,48 @@
+ juc 四大并发工具类(内部都是lock实现的)
+    juc.CountDownLatch 闭锁
+        一个线程等待一组线程执行完毕后再恢复执行
+
+        await() 等待其他线程都执行完毕
+        通过计数器来判断等待的线程是否全部执行完毕
+        计数器：countDown方法，被等待线程执行完毕后将计数器值-1
+        当countDownLatch的值 减为0时无法恢复，这就是叫做闭锁的原因
+
+        juc.CyclicBarrier 循环栅栏
+        一组线程 同时到达临界点后再同时恢复执行(先到达临界点的线程会阻塞，直到所有线程都到达临界点)
+
+        public CyclicBarrier(int parties,Runnable barrierAction)
+        当多个线程同时到达临界点时，
+        随机挑一个线程执行barrierAction后再同时恢复执行
+        模拟：多线程向磁盘写入数据
+        计数器的值可以恢复
+
+        juc.Exchanger 线程交换器
+        用于两个线程之间的数据交换，当Exchanger缓冲区只有一个线程时，改线程会阻塞，知道有别的
+        线程调用exchange 进入缓冲区，然后当前线程与新线程交换数据后恢复执行
+
+        juc.Semaphore 信号量
+
+        acquire():尝试占用一个信号量，失败的线程会阻塞，直达有新的信号量，再恢复执行
+        release():释放一个信号量
+
+        acquire(n):尝试占用n信号量，失败的线程会阻塞，直达有新的信号量，再恢复执行
+        release(n):释放n信号量
+
+        homework : 使用juc包下的四大工具类
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
