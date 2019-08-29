@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!--
+    将类映射成数据库中的表
+    将类中的属性映射成数据库中表的字段
+-->
+<hibernate-mapping>
+
+    <class name="com.ming.po.UserInfo" table="t_userinfo" catalog="hibernate_db">
+       <id name="userId" column="t_userid">
+           <generator class="native"/>
+       </id>
+
+        <property name="userName" column="t_username"/>
+        <property name="userPass" column="t_userpass"/>
+    </class>
+</hibernate-mapping>
