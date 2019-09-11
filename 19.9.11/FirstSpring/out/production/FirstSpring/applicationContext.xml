@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--该文件将所有对象都放进了spring ioc的一个容器中-->
+    <bean id = "User" class = "com.liang.firstspring.User">
+        <property name="userName" value="Spring"></property>
+    </bean>
+</beans>
+
