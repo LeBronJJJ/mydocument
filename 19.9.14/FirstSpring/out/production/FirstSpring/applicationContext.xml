@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--该文件将所有对象都放进了spring ioc的一个容器中-->
+    <bean id="User" class="com.liang.firstspring.User" autowire="byName">
+        <property name = "userName" value="1"/>
+
+    </bean>
+    <bean id="tool" class="com.liang.firstspring.Tool" p:size="100">
+        <!--
+                <constructor-arg value="1"/>
+        -->
+    </bean>
+    <bean id="collectionsDemo" class="com.liang.firstspring.AllCollections">
+        <!--通过set方式赋值-->
+        <property name="list">
+            <list>
+                <value>足球</value>
+                <value>篮球</value>
+                <value>乒乓球</value>
+            </list>
+        </property>
+        <property name="array">
+            <array>
+                <value>足球1</value>
+                <value>篮球1</value>
+                <value>乒乓球1</value>
+            </array>
+        </property>
+        <property name="set">
+            <set>
+                <value>足球2</value>
+                <value>篮球2</value>
+                <value>乒乓球2</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry>
+                    <key>
+                        <value>足球3</value>
+                    </key>
+                    <value>足球3</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>足球3</value>
+                    </key>
+                    <value>篮球3</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>足球3</value>
+                    </key>
+                    <value>乒乓球3</value>
+                </entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="football">足球4</prop>
+                <prop key="basketball">篮球4</prop>
+                <prop key="pingpong">乒乓球4</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
+
